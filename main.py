@@ -53,18 +53,6 @@ delta = compensate(
 divided_delta_db = delta[1]/2
 
 plot(
-    phone_names=[f"GRAS DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on GRAS"],
-    phone_list=[baseline_gras, phone_gras],
-    show_area=False
-)
-plot(
-    phone_names=[f"B&K 5128 DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on B&K 5128"],
-    phone_list=[baseline_5128, phone_5128],
-    show_area=False
-)
-plot(
     phone_names=[f"{display_name} HpTF effect on GRAS",
                  f"{display_name} HpTF effect on B&K 5128"],
     phone_list=[hptf_gras, hptf_5128],
@@ -76,4 +64,16 @@ plot(
                 (delta[0], -divided_delta_db)],
     show_area=True,
     color=generate_color()
+)
+plot(
+    phone_names=[f"GRAS DF HRTF (not a target !)",
+                 f"{display_name} raw frequency response on GRAS"],
+    phone_list=[baseline_gras, phone_gras],
+    show_area=False
+)
+plot(
+    phone_names=[f"B&K 5128 DF HRTF (not a target !)",
+                 f"{display_name} raw frequency response on B&K 5128"],
+    phone_list=[baseline_5128, phone_5128],
+    show_area=False
 )
