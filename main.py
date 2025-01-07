@@ -7,11 +7,12 @@ from app.hrtf import compensate
 from config import HPTF_NORMALIZATION_FREQUENCY
 
 # Setup
-headphone_name = "hd800s"  # Change here !
+headphone_name = "hd560s"  # Change here !
 # Available headphones currently:
 # sundara (Hifiman)
 # hd600_fresh_pads (Sennheiser)
 # hd800s (Sennheiser)
+# hd560s (Sennheiser)
 # m50x (Audio-technica)
 
 display_name = headphone_name.capitalize()
@@ -51,7 +52,7 @@ delta = compensate(
     hptf_5128,
     hptf_gras
 )
-# Divite it by 2 (to center the graph later)
+# Divide it by 2 (to center the graph later)
 divided_delta_db = delta[1]/2
 
 plot(
@@ -67,15 +68,15 @@ plot(
     show_area=True,
     color=generate_color()
 )
-# plot(
-#     phone_names=[f"GRAS DF HRTF (not a target !)",
-#                  f"{display_name} raw frequency response on GRAS"],
-#     phone_list=[baseline_gras, phone_gras],
-#     show_area=False
-# )
-# plot(
-#     phone_names=[f"B&K 5128 DF HRTF (not a target !)",
-#                  f"{display_name} raw frequency response on B&K 5128"],
-#     phone_list=[baseline_5128, phone_5128],
-#     show_area=False
-# )
+plot(
+    phone_names=[f"GRAS DF HRTF (not a target !)",
+                 f"{display_name} raw frequency response on GRAS"],
+    phone_list=[baseline_gras, phone_gras],
+    show_area=False
+)
+plot(
+    phone_names=[f"B&K 5128 DF HRTF (not a target !)",
+                 f"{display_name} raw frequency response on B&K 5128"],
+    phone_list=[baseline_5128, phone_5128],
+    show_area=False
+)

@@ -2,8 +2,9 @@
 
 ## Introduction
 This is a small project to help visualize the headphone transfer function (HpTF) effects using measurements from the B&K 5128 HATS and GRAS system (KB50xx).  
-If you notice any calculation error, please don't hesitate to open an issue ! Thank you in advance.
+If you notice any calculation error, please don't hesitate to open an issue ! Thank you in advance.  
 
+Frequency response from Squiglink.
 
 ## Screenshots:
   <img src="img/sundara_hptf.png" alt="Sundara HpTF on GRAS and B&K5128"/>
