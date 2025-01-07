@@ -7,10 +7,12 @@ from app.hrtf import compensate
 from config import HPTF_NORMALIZATION_FREQUENCY
 
 # Setup
-headphone_name = "sundara"  # Change here !
+headphone_name = "hd800s"  # Change here !
 # Available headphones currently:
-# sundara
-# hd600_fresh_pads
+# sundara (Hifiman)
+# hd600_fresh_pads (Sennheiser)
+# hd800s (Sennheiser)
+# m50x (Audio-technica)
 
 display_name = headphone_name.capitalize()
 lowered_name = headphone_name.lower()
@@ -30,7 +32,7 @@ phone_gras = normalize(
 phone_5128 = normalize(
     interpolate_from_file(
         Path(
-            f"frequency_responses/b&k_5128/{lowered_name}_b&k_5128.txt")
+            f"frequency_responses/b&k_5128/{lowered_name}_5128.txt")
     )
 )
 
@@ -65,15 +67,15 @@ plot(
     show_area=True,
     color=generate_color()
 )
-plot(
-    phone_names=[f"GRAS DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on GRAS"],
-    phone_list=[baseline_gras, phone_gras],
-    show_area=False
-)
-plot(
-    phone_names=[f"B&K 5128 DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on B&K 5128"],
-    phone_list=[baseline_5128, phone_5128],
-    show_area=False
-)
+# plot(
+#     phone_names=[f"GRAS DF HRTF (not a target !)",
+#                  f"{display_name} raw frequency response on GRAS"],
+#     phone_list=[baseline_gras, phone_gras],
+#     show_area=False
+# )
+# plot(
+#     phone_names=[f"B&K 5128 DF HRTF (not a target !)",
+#                  f"{display_name} raw frequency response on B&K 5128"],
+#     phone_list=[baseline_5128, phone_5128],
+#     show_area=False
+# )
