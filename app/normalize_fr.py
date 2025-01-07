@@ -2,17 +2,17 @@ import numpy as np
 from scipy.interpolate import interp1d
 from typing import Tuple
 
-from app.config import NORMALIZATION_FREQUENCY
+from config import PHONE_NORMALIZATION_FREQUENCY
 
 
 def normalize(
     freq_db: Tuple[np.ndarray, np.ndarray],
-    reference_freq: int = NORMALIZATION_FREQUENCY
+    freq: int = PHONE_NORMALIZATION_FREQUENCY
 ) -> Tuple[np.ndarray, np.ndarray]:
     frequencies, dbs = freq_db
 
     # Create an interpolation function to find the dB at the reference frequency
-    # fill_value="extrapolate" allows interpolation even if reference_freq is
+    # fill_value="extrapolate" allows interpolation even if freq is
     # outside the min-max range of 'frequencies'
     interpolation_function = interp1d(
         frequencies,
@@ -23,7 +23,7 @@ def normalize(
     )
 
     # Get the dB at the reference frequency
-    ref_db = interpolation_function(reference_freq)
+    ref_db = interpolation_function(freq)
 
     # Subtract this reference dB from the entire dB array
     normalized_dbs = dbs - ref_db

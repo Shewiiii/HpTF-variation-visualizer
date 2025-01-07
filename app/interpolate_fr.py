@@ -5,15 +5,15 @@ import pandas as pd
 from pathlib import Path
 
 
-from app.read_fr import read_frequency_response_file
-from app.config import NUM_VALUES
+from app.read_fr import read_phone_file
+from config import NUM_VALUES
 
 
 def interpolate(
     df: pd.DataFrame,
     num_values: int = NUM_VALUES
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """Interpolates frequency-dB pairs from a DataFrame."""
+    """Interpolates frequency-dB pairs from a DataFrame using log scale."""
     # Extract the values
     frequencies = df['frequency'].values
     dbs = df['dB'].values
@@ -22,7 +22,6 @@ def interpolate(
     sorted_i = np.argsort(frequencies)
     frequencies_sorted = frequencies[sorted_i]
     dbs_sorted = dbs[sorted_i]
-
     # Create the interpolating function
     interpolation_function = interp1d(
         frequencies_sorted,
@@ -32,10 +31,12 @@ def interpolate(
     )
 
     # Create a list of homogeneously separated frequency values
-    interpolated_frequencies = np.linspace(
-        frequencies_sorted.min(),
-        frequencies_sorted.max(),
-        num_values
+    interpolated_frequencies = np.exp(
+        np.linspace(
+            np.log(frequencies_sorted.min()),
+            np.log(frequencies_sorted.max()),
+            num_values
+        )
     )
 
     # Calculate interpolated dB values
@@ -49,6 +50,6 @@ def interpolate_from_file(
     num_values: int = NUM_VALUES
 ) -> Tuple[np.ndarray, np.ndarray]:
     return interpolate(
-        read_frequency_response_file(path),
+        read_phone_file(path),
         num_values
     )

@@ -3,10 +3,10 @@ from pandas.core.frame import DataFrame
 from pathlib import Path
 from typing import Union
 
-from app.config import SEPARATOR
+from config import SEPARATOR
 
 
-def read_frequency_response_file(path: Union[Path, str]) -> DataFrame:
+def read_phone_file(path: Union[Path, str]) -> DataFrame:
     return pd.read_csv(
         path,
         sep=SEPARATOR,
