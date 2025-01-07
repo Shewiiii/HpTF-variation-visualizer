@@ -4,10 +4,11 @@ from app.interpolate_fr import interpolate_from_file
 from app.plot import plot, generate_color
 from app.normalize_fr import normalize
 from app.hrtf import compensate
+from app.tilt import tilt_phone
 from config import HPTF_NORMALIZATION_FREQUENCY
 
 # Setup
-headphone_name = "hd560s"  # Change here !
+headphone_name = "hd600_fresh_pads"  # Change here !
 # Available headphones currently:
 # sundara (Hifiman)
 # hd600_fresh_pads (Sennheiser)
@@ -69,14 +70,15 @@ plot(
     color=generate_color()
 )
 plot(
-    phone_names=[f"GRAS DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on GRAS"],
-    phone_list=[baseline_gras, phone_gras],
-    show_area=False
+    phone_name=f"{display_name} compensated frequency response on GRAS relative to -1dB/oct DF",
+    phone_list=[normalize(compensate(tilt_phone(baseline_gras), phone_gras))],
+    show_area=True,
+    add_x_axis_line=True
 )
 plot(
-    phone_names=[f"B&K 5128 DF HRTF (not a target !)",
-                 f"{display_name} raw frequency response on B&K 5128"],
-    phone_list=[baseline_5128, phone_5128],
-    show_area=False
+    phone_name=f"{display_name} compensated frequency response on B&K 5128 relative to -1dB/oct DF",
+    phone_list=[normalize(compensate(tilt_phone(baseline_5128), phone_5128))],
+    show_area=True,
+    add_x_axis_line=True
+
 )

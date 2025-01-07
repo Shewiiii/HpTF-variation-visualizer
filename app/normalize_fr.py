@@ -6,10 +6,10 @@ from config import PHONE_NORMALIZATION_FREQUENCY
 
 
 def normalize(
-    freq_db: Tuple[np.ndarray, np.ndarray],
+    phone: Tuple[np.ndarray, np.ndarray],
     freq: int = PHONE_NORMALIZATION_FREQUENCY
 ) -> Tuple[np.ndarray, np.ndarray]:
-    frequencies, dbs = freq_db
+    frequencies, dbs = phone
 
     # Create an interpolation function to find the dB at the reference frequency
     # fill_value="extrapolate" allows interpolation even if freq is

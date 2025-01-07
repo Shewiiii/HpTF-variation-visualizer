@@ -23,7 +23,8 @@ def plot(
     color=None,
     phone_names: list = [],
     phone_name: str = "",  # If only one label needed (e.g: centered delta)
-    center_y_axis: bool = True
+    center_y_axis: bool = True,
+    add_x_axis_line: bool = False
 ) -> None:
     """Plots a frequency-response curve."""
     # Center the phones
@@ -82,6 +83,10 @@ def plot(
     # Center y-axis
     if center_y_axis:
         ax.set_ylim(-Y_AXIS_SCALE//2, Y_AXIS_SCALE//2)
+
+    # Add x-axis line
+    if add_x_axis_line:
+        ax.axhline(0, color='gray', linewidth=1.5)
 
     # Ticks
     ax.tick_params(axis='x', colors='white')
