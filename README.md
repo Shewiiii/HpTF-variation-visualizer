@@ -10,13 +10,13 @@ Lower HpTF variation is better.
 ### Good HpTF variation:
 <div align="center">
   <img src="img/hd800s_average_tilted_fr.png" alt="Average Frequency response of Sundara on both rigs"/>
-  <p>HD800S is known to have a very low HpTF variation from bass to high mids due to its very low acoustic output impedance. Treble however, can vary quite a lot from person to person.</p>
+  <p>HD800S is known to have a low HpTF variation from bass to high mids due to its low acoustic output impedance relative to other headphones. Treble however, can vary quite a lot from person to person.</p>
 </div>
 
 ### Bad HpTF variation:
 <div align="center">
   <img src="img/m50x_average_tilted_fr.png" alt="Average Frequency response of Sundara on both rigs"/>
-  <p>ATH-M50x frequency response varies a lot across the whole frequency range.</p>
+  <p>ATH-M50x frequency response varies across the whole frequency range.</p>
 </div>
 
 ## Screenshots:
