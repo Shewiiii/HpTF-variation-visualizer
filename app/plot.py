@@ -4,6 +4,7 @@ import matplotlib.ticker as ticker
 from random import uniform, random
 import colorsys
 from typing import Tuple
+from scipy.signal import find_peaks
 
 from config import BACKGROUND_COLOR, Y_AXIS_SCALE
 
@@ -25,7 +26,9 @@ def plot(
     phone_name: str = "",  # If only one label needed (e.g: centered delta)
     center_y_axis: bool = True,
     add_x_axis_line: bool = False,
-    uncertainties: list[Tuple[np.ndarray, np.ndarray]] = []
+    uncertainties: list[Tuple[np.ndarray, np.ndarray]] = [],
+    show_peaks: bool = False,
+    peak_prominence: float = 3.0
 ) -> None:
     """Plots a frequency-response curve."""
     # Center the phones
@@ -115,5 +118,27 @@ def plot(
 
     # Legend
     ax.legend()
+
+    # Detect peaks
+    if show_peaks:
+        peak_indices, _ = find_peaks(dbs, prominence=peak_prominence)
+        for p in peak_indices:
+            peak_freq = frequencies[p]
+            peak_val = dbs[p]
+            ax.plot(peak_freq, peak_val, "o", color=phone_color)
+            ax.text(
+                peak_freq,
+                peak_val + 2,
+                f"{peak_freq:.0f} Hz\n{peak_val:.1f} dB",
+                color="white",
+                ha="center",
+                va="bottom",
+                fontsize=10,
+                bbox=dict(
+                    facecolor=BACKGROUND_COLOR,
+                    alpha=0.7,
+                    edgecolor='none'
+                )
+            )
 
     plt.show()

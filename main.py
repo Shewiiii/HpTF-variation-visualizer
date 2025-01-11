@@ -83,5 +83,6 @@ plot(
     phone_list=[tilted_average],
     add_x_axis_line=True,
     uncertainties=[(tilted_gras[0], tilted_average[1]+divided_delta_db),
-                   (tilted_gras[0], tilted_average[1]-divided_delta_db)]
+                   (tilted_gras[0], tilted_average[1]-divided_delta_db)],
+    show_peaks=True
 )
