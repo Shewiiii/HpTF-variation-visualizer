@@ -24,7 +24,8 @@ def plot(
     phone_names: list = [],
     phone_name: str = "",  # If only one label needed (e.g: centered delta)
     center_y_axis: bool = True,
-    add_x_axis_line: bool = False
+    add_x_axis_line: bool = False,
+    uncertainties: list[Tuple[np.ndarray, np.ndarray]] = []
 ) -> None:
     """Plots a frequency-response curve."""
     # Center the phones
@@ -72,6 +73,23 @@ def plot(
                 color=color if color else phone_color,
                 alpha=0.3
             )
+
+    # Fill the uncertainties
+    for phone in uncertainties:
+        freq_unc, dbs_unc = phone
+        ax.plot(
+            freq_unc,
+            dbs_unc,
+            color='grey',
+        )
+    if len(uncertainties) >= 2:
+        ax.fill_between(
+            uncertainties[0][0],
+            uncertainties[0][1],
+            uncertainties[1][1],
+            color='grey',
+            alpha=0.15
+        )
 
     # Axes
     ax.set_xscale('log')

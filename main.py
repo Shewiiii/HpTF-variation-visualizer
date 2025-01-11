@@ -8,7 +8,7 @@ from app.tilt import tilt_phone
 from config import HPTF_NORMALIZATION_FREQUENCY
 
 # Setup
-headphone_name = "hd600_fresh_pads"  # Change here !
+headphone_name = "sundara"  # Change here !
 # Available headphones currently:
 # sundara (Hifiman)
 # hd600_fresh_pads (Sennheiser)
@@ -53,8 +53,14 @@ delta = compensate(
     hptf_5128,
     hptf_gras
 )
+
 # Divide it by 2 (to center the graph later)
 divided_delta_db = delta[1]/2
+
+# Tilted FRs
+tilted_5128 = normalize(compensate(tilt_phone(baseline_5128), phone_5128))
+tilted_gras = normalize(compensate(tilt_phone(baseline_gras), phone_gras))
+tilted_average = (tilted_gras[0], (tilted_gras[1]+tilted_5128[1])/2)
 
 plot(
     phone_names=[f"{display_name} HpTF effect on GRAS",
@@ -70,15 +76,12 @@ plot(
     color=generate_color()
 )
 plot(
-    phone_name=f"{display_name} compensated frequency response on GRAS relative to -1dB/oct DF",
-    phone_list=[normalize(compensate(tilt_phone(baseline_gras), phone_gras))],
-    show_area=True,
-    add_x_axis_line=True
-)
-plot(
-    phone_name=f"{display_name} compensated frequency response on B&K 5128 relative to -1dB/oct DF",
-    phone_list=[normalize(compensate(tilt_phone(baseline_5128), phone_5128))],
-    show_area=True,
-    add_x_axis_line=True
-
+    phone_name=(
+        f"{display_name} compensated frequency response on average,"
+        " relative to -1dB/oct DF"
+    ),
+    phone_list=[tilted_average],
+    add_x_axis_line=True,
+    uncertainties=[(tilted_gras[0], tilted_average[1]+divided_delta_db),
+                   (tilted_gras[0], tilted_average[1]-divided_delta_db)]
 )
